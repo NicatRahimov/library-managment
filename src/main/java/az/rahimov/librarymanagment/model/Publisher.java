@@ -5,7 +5,9 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -18,5 +20,5 @@ public class Publisher {
     String name;
 
     @ManyToMany(mappedBy = "publishers",fetch = FetchType.LAZY)
-    List<Book>books;
+    List<Book> books;
 }

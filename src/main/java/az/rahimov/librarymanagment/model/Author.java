@@ -2,13 +2,18 @@ package az.rahimov.librarymanagment.model;
 
 import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Author {
     @Id

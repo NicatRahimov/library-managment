@@ -1,19 +1,16 @@
 package az.rahimov.librarymanagment.service;
 
-import az.rahimov.librarymanagment.model.Book;
-import az.rahimov.librarymanagment.repository.BookRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import az.rahimov.librarymanagment.dto.BookDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class BookService {
+public interface BookService {
+    List<BookDTO> getAllBooks();
+    BookDTO getBookById(Integer id);
+    String saveBook(BookDTO bookDTO);
+    String deleteBookById(Integer id);
+    String updateBook(BookDTO bookDTO,Integer id);
 
-    @Autowired
-    BookRepository bookRepository;
-
-    public ResponseEntity<Book> findById(Integer id){
-        return new ResponseEntity<>(bookRepository.findById(id).get(), HttpStatus.OK);
-    }
 }
