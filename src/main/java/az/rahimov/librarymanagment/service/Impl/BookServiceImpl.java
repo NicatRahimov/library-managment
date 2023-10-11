@@ -4,8 +4,9 @@ import az.rahimov.librarymanagment.dto.BookDTO;
 import az.rahimov.librarymanagment.model.Book;
 import az.rahimov.librarymanagment.repository.BookRepository;
 import az.rahimov.librarymanagment.service.BookService;
-import az.rahimov.librarymanagment.exceptions.UserNotFound;
-import az.rahimov.librarymanagment.util.BookMapper;
+import az.rahimov.librarymanagment.exceptions.BookNotFound;
+import az.rahimov.librarymanagment.util.mappers.BookMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,26 +22,22 @@ private final BookRepository bookRepository;
 
 
     @Override
-    public List<BookDTO> getAllBooks() {
+    public List<Book> getAllBooks() {
         List<Book> books = bookRepository.findAll();
-        return bookMapper.toDtoList(books);
+        return books;
     }
-
     @Override
-    public BookDTO getBookById(Integer id) {
+    public Book getBookById(Integer id) {
         Optional<Book> book = bookRepository.findById(id);
-        BookDTO bookDto;
        if (book.isPresent()){
-           bookDto = bookMapper.toDto(book.get());
+           return book.get();
        }else {
-           throw new UserNotFound("NO user found with ID: "+id);
+           throw new BookNotFound("NO user found with ID: "+id);
        }
-       return bookDto;
     }
-
     @Override
-    public String saveBook(BookDTO bookDTO) {
-        bookRepository.save(bookMapper.toEntity(bookDTO));
+    public String saveBook(Book book) {
+        bookRepository.save(book);
         return "Saved successfully";
     }
 
@@ -50,22 +47,19 @@ private final BookRepository bookRepository;
         if (bookOpt.isPresent()){
             bookRepository.delete(bookOpt.get());
             return "Successfully deleted";
-  }else throw new UserNotFound("No user found with id: "+id);
+  }else throw new BookNotFound("No user found with id: "+id);
     }
 
     @Override
-    public String updateBook(BookDTO bookDTO,Integer id) {
+    public String updateBook(Book book, Integer id) {
         Optional<Book> bookOpt = bookRepository.findById(id);
         if (bookOpt.isPresent()){
-            Book book = bookOpt.get();
-            book.setName(bookDTO.getName());
-            book.setIsbn(bookDTO.getIsbn());
-            book.setDescription(bookDTO.getDescription());
-            book.setAuthors(bookDTO.getAuthors());
-            book.setPublishers(bookDTO.getPublishers());
-            book.setCategories(bookDTO.getCategories());
+           book = bookOpt.get();
+            book.setName(book.getName());
+            book.setIsbn(book.getIsbn());
+            book.setDescription(book.getDescription());
             bookRepository.save(book);
             return "Updated successfully";
-        }else throw new UserNotFound("There is no user for update request");
+        }else throw new BookNotFound("No book with "+id+" id");
     }
 }

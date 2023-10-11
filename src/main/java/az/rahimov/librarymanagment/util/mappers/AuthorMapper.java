@@ -1,4 +1,4 @@
-package az.rahimov.librarymanagment.util;
+package az.rahimov.librarymanagment.util.mappers;
 
 import az.rahimov.librarymanagment.dto.AuthorDTO;
 import az.rahimov.librarymanagment.model.Author;

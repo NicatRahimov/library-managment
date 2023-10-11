@@ -12,8 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthorDTO {
-
+Integer id;
     String firstName;
     String lastName;
-    List<Book>books;
+    List<BookDTO>books;
 }

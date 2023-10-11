@@ -5,6 +5,7 @@ import jdk.jfr.DataAmount;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +23,4 @@ public class Author {
     String firstName;
     String lastName;
 
-    @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL)
-    List<Book> books;
 }

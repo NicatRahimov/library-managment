@@ -9,14 +9,14 @@ import java.util.List;
 @Service
 public interface AuthorService {
 
-    List<AuthorDTO> getAllAuthors();
+    List<Author> getAllAuthors();
 
-    AuthorDTO getAuthorById(Integer id);
+    Author getAuthorById(Integer id);
 
-    String saveAuthor(AuthorDTO authorDTO);
+    String saveAuthor(Author author);
 
     String deleteAuthor(Integer id);
 
-    String updateAuthor(AuthorDTO authorDTO,Integer id);
+    String updateAuthor(Author author,Integer id);
 
 }

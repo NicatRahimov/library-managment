@@ -14,5 +14,5 @@ import java.util.List;
 public class CategoryDTO {
     Integer id;
     String name;
-    List<Book>books;
+    List<BookDTO>books;
 }

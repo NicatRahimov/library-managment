@@ -18,7 +18,7 @@ public class BookDTO {
     String name;
     String isbn;
     String description;
-    List<Author>authors;
-    List<Publisher>publishers;
-    List<Category>categories;
+    List<AuthorDTO>authors;
+    List<PublisherDTO>publishers;
+    List<CategoryDTO>categories;
 }

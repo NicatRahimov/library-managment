@@ -5,7 +5,8 @@ import az.rahimov.librarymanagment.exceptions.AuthorNotFound;
 import az.rahimov.librarymanagment.model.Author;
 import az.rahimov.librarymanagment.repository.AuthorRepository;
 import az.rahimov.librarymanagment.service.AuthorService;
-import az.rahimov.librarymanagment.util.AuthorMapper;
+import az.rahimov.librarymanagment.util.mappers.AuthorMapper;
+import az.rahimov.librarymanagment.util.mappers.BookMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,28 +20,25 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository authorRepository;
     private final AuthorMapper authorMapper=AuthorMapper.INSTANCE;
 
+    private final BookMapper bookMapper= BookMapper.INSTANCE;
+
 
     @Override
-    public List<AuthorDTO> getAllAuthors() {
+    public List<Author> getAllAuthors() {
         List<Author> all = authorRepository.findAll();
-       return authorMapper.toDtoList(all);
+       return all;
     }
 
     @Override
-    public AuthorDTO getAuthorById(Integer id) {
+    public Author getAuthorById(Integer id) {
         Optional<Author> authOpt = authorRepository.findById(id);
         if (authOpt.isPresent()){
-            return authorMapper.toDto(authOpt.get());
+            return authOpt.get();
         }else throw new AuthorNotFound();
     }
 
     @Override
-    public String saveAuthor(AuthorDTO authorDTO) {
-   Author author = Author.builder()
-           .firstName(authorDTO.getFirstName())
-           .lastName(authorDTO.getLastName())
-           .books(authorDTO.getBooks())
-           .build();
+    public String saveAuthor(Author author) {
    authorRepository.save(author);
    return "Saved successfully";
     }
@@ -55,7 +53,14 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public String updateAuthor(AuthorDTO authorDTO,Integer id) {
-
+    public String updateAuthor(Author author,Integer id) {
+Optional<Author>authOpt=authorRepository.findById(id);
+if (authOpt.isPresent()){
+    Author author1=authOpt.get();
+    author1.setFirstName(author.getFirstName());
+    author1.setLastName(author.getLastName());
+    authorRepository.save(author);
+    return "Updated successfully";
+}else throw new AuthorNotFound();
     }
 }

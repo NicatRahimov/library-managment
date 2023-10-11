@@ -1,10 +1,10 @@
 package az.rahimov.librarymanagment.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,13 +12,14 @@ import java.util.Set;
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-Integer id;
+    Integer id;
     String name;
-
     @ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
-    List<Book> books;
+    List<Book> books=new ArrayList<>();
 }
