@@ -47,7 +47,6 @@ public class CategoryServiceImpl implements CategoryService {
     public String updateCategory(Category category, Integer id) {
         Category category1 = categoryRepository.findById(id).get();
         category1.setName(category.getName());
-        category1.setBooks(category.getBooks());
         return "Updated successfully";
     }
 }

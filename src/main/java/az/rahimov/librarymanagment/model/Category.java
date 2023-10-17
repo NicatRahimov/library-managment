@@ -20,6 +20,4 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     String name;
-    @ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
-    List<Book> books=new ArrayList<>();
 }
