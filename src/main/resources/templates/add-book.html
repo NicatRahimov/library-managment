@@ -49,6 +49,9 @@
                  </select>
              </div>
 
+             <p>Click here if you want add publisher</p>
+             <a th:href="@{/library/publishers/add}" class="btn btn-success">Add publisher</a>
+
              <div class="form-group">
                  <label for="dropdown1">Author(s)</label>
                  <select class="form-control" id="dropdown1" th:field="*{categories}" th:multiple="multiple">
@@ -56,6 +59,8 @@
                              th:value="${category.id}" th:text="${category.getName()}"></option>
                  </select>
              </div>
+             <p>Click here if you want add category</p>
+             <a th:href="@{/library/categories/add}" class="btn btn-success">Add category</a>
          </div>
             <button type="submit" class="btn btn-primary mt-3">Add book</button>
         </form>

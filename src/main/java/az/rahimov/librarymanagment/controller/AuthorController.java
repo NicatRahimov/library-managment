@@ -5,10 +5,7 @@ import az.rahimov.librarymanagment.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,6 +32,12 @@ public class AuthorController {
     @PostMapping("/save")
     public String saveAuthor(@ModelAttribute("author") Author author){
         authorService.saveAuthor(author);
-        return "redirect:/library/books/addBook";
+        return "redirect:/library/authors";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteAuthor(@PathVariable Integer id){
+        authorService.deleteAuthor(id);
+        return "redirect:/library/authors";
     }
 }

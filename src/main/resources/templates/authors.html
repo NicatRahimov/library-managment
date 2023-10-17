@@ -10,7 +10,7 @@
 <body>
 
 <th:block th:replace="~{fragments/header :: header}"></th:block>
-<a th:href="@{/library/authors/add}" class="btn btn-info mt-3">
+<a th:href="@{/library/authors/add}" class="btn btn-outline-success mt-3">
     Add author    <i class="fa-solid fa-user-plus fa-beat"></i>
 </a>
 <table class="table table-bordered">
@@ -18,12 +18,20 @@
     <tr>
         <th>First name</th>
         <th>Last name</th>
+        <th>Edit details</th>
+        <th>Delete author</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="author : ${authors}">
         <td th:text="${author.firstName}"></td>
         <td th:text="${author.lastName}"></td>
+        <td>
+            <a href="#" class="btn btn-warning">Edit authors details</a>
+        </td>
+        <td>
+            <a th:href="@{/library/authors/delete/{id}(id=${author.id})}" class="btn btn-danger"> Delete author</a>
+        </td>
     </tr>
     </tbody>
 </table>
