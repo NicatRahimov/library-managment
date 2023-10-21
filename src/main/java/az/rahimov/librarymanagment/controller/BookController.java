@@ -1,5 +1,6 @@
 package az.rahimov.librarymanagment.controller;
 
+import az.rahimov.librarymanagment.model.Author;
 import az.rahimov.librarymanagment.model.Book;
 import az.rahimov.librarymanagment.service.AuthorService;
 import az.rahimov.librarymanagment.service.BookService;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -55,5 +57,36 @@ public class BookController {
     public String saveBook(@ModelAttribute("book") Book book){
             bookService.saveBook(book);
             return "redirect:/library/books";
+    }
+
+
+    @GetMapping("/edit/{id}")
+    public String editBookDetails(
+            @PathVariable Integer id,
+            Model model) {
+        Book book = bookService.getBookById(id);
+        model.addAttribute("book", book);
+        return "edit-book";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String applyEditedData(@ModelAttribute("book")Book book,
+                                  @PathVariable Integer id){
+bookService.updateBook(book,id);
+        return "redirect:/library/books";
+    }
+
+
+    @PostMapping("/removeAuthor")
+    public String removeCategoryFromBook(@RequestParam Integer bookId, @RequestParam Integer authorId) {
+        // Retrieve the book and category from the database
+        Book book = bookService.getBookById(bookId);
+        Author author = authorService.getAuthorById(authorId);
+
+        // Remove the category from the book
+        book.getAuthors().remove(author);
+        // Save the updated book
+        bookService.saveBook(book);
+        return "redirect:/library/books"; // Redirect to the books page
     }
 }

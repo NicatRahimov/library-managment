@@ -34,10 +34,8 @@
                     <option value="option1" th:each="author:${authors}"
                             th:value="${author.id}" th:text="${author.getFirstName() + ' ' +author.getLastName()}"></option>
                 </select>
-
                 <p>Click here if you want add author</p>
                 <a th:href="@{/library/authors/add}" class="btn btn-success">Add author</a>
-
             </div>
 
 

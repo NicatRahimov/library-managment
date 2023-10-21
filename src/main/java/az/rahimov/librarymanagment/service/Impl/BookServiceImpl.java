@@ -51,15 +51,23 @@ private final BookRepository bookRepository;
     }
 
     @Override
-    public String updateBook(Book book, Integer id) {
-        Optional<Book> bookOpt = bookRepository.findById(id);
-        if (bookOpt.isPresent()){
-           book = bookOpt.get();
-            book.setName(book.getName());
-            book.setIsbn(book.getIsbn());
-            book.setDescription(book.getDescription());
-            bookRepository.save(book);
-            return "Updated successfully";
-        }else throw new BookNotFound("No book with "+id+" id");
+    public String updateBook(Book book,Integer id) {
+       Book book1 = Book.builder()
+                .id(id)
+                .name(book.getName())
+                .isbn(book.getIsbn())
+                .description(book.getDescription())
+                        .authors(book.getAuthors())
+                                .publishers(book.getPublishers())
+                                        .categories(book.getCategories())
+                                                .build();
+
+        bookRepository.save(book1);
+        return "Successfull";
+    }
+
+    @Override
+    public void removeAuthorFromBook(Integer id) {
+
     }
 }

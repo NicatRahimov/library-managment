@@ -40,7 +40,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public String deleteCategory(Integer id) {
-        return null;
+        Optional<Category>opt=categoryRepository.findById(id);
+       categoryRepository.delete(opt.get());
+       return "Successfull";
     }
 
     @Override
